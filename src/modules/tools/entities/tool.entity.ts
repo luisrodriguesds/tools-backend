@@ -2,14 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity({ name: 'tools' })
 export class Tool {
-  @PrimaryColumn({ type: 'int' })
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   title: string;

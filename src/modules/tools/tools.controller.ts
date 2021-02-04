@@ -16,7 +16,7 @@ export class ToolsController {
   constructor(private readonly toolsService: ToolsService) {}
 
   @Post()
-  create(@Body() createToolDto: CreateToolDto) {
+  async create(@Body() createToolDto: CreateToolDto) {
     return this.toolsService.create(createToolDto);
   }
 

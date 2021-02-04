@@ -1,10 +1,27 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Tool } from './modules/tools/entities/tool.entity';
+import { ToolsController } from './modules/tools/tools.controller';
+import { ToolsService } from './modules/tools/tools.service';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: process.env.TYPEORM_CONNECTION as any,
+      host: process.env.TYPEORM_HOST,
+      port: parseInt(process.env.TYPEORM_PORT),
+      username: process.env.TYPEORM_USERNAME,
+      password: process.env.TYPEORM_PASSWORD,
+      database: process.env.TYPEORM_DATABASE,
+      entities: [Tool],
+    }),
+    TypeOrmModule.forFeature([Tool]),
+  ],
+  controllers: [AppController, ToolsController],
+  providers: [AppService, ToolsService],
 })
 export class AppModule {}
